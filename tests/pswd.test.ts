@@ -1,5 +1,6 @@
 import { describe, it } from "mocha";
 import Pswd from "../src/pswd";
+import { expect } from "chai";
 
 const secret_key = "12345";
 
@@ -13,7 +14,7 @@ describe("management passwords", () => {
   });
 
   it("should to be decrypt password", () => {
-    const result = ins.dec(passed_hash);
-    console.log(result);
+    const password = ins.dec(passed_hash);
+    expect(password).to.be.a("string").not.empty;
   });
 });

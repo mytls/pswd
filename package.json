@@ -1,11 +1,14 @@
 {
   "name": "@mmdzov/pswd",
-  "version": "1.5.0",
+  "version": "1.5.4",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --watch -r ts-node/register 'tests/**/*.ts'"
+    "start:transpile": "tsc",
+    "start:watch": "nodemon dist/index.js",
+    "start": "concurrently npm:start:*",
+    "test": "mocha -r ts-node/register tests/*.ts tests/**/*.ts",
+    "test:watch": "mocha -r ts-node/register --watch --watch-files tests/*.ts tests/**/*.ts src/**/*.ts src/*.ts"
   },
   "repository": {
     "type": "git",
@@ -24,6 +27,7 @@
     "@types/mocha": "^9.1.0",
     "@types/node": "^17.0.12",
     "chai": "^4.3.4",
+    "concurrently": "^7.0.0",
     "mocha": "^9.2.0",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.5"
