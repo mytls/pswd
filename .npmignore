@@ -12,3 +12,8 @@
 config.gypi
 CVS
 npm-debug.log
+config
+src/config
+dist/config
+*.rar
+*.zip

@@ -1,7 +1,11 @@
 import crypto from "crypto-js";
+import Jwt from "./jwt";
 
 class Pswd {
-  constructor(private secret_key: string) {}
+  declare jwt: Jwt;
+  constructor(private secret_key: string) {
+    this.jwt = new Jwt();
+  }
 
   dec(pswd: string) {
     const result = crypto.AES.decrypt(pswd, this.secret_key);
