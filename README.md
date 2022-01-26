@@ -12,7 +12,9 @@
 
 **install**
  
-  `npm i @mmdzov/pswd`
+```npm
+npm i @mmdzov/pswd
+```
   
 
 **Usage**
