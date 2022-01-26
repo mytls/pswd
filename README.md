@@ -15,3 +15,20 @@
  
   `npm i @mmdzov/pswd`
   
+
+**Usage**
+
+*Add Token to blacklist*
+```
+const secret_key = "12345"
+const ins = new Pswd(secret_key);
+const client = await connect(); // return redis client
+await ins.jwt.blacklist.config({ redisClient: client }).add("user_token"); // return boolean
+
+```
+
+*Get list of blacklist*
+```
+const client = await connect();
+let result = await ins.jwt.blacklist.config({ redisClient: client }).getList(); //return array of object blacklist. like: [{ key: "BLACKLIST_TOKEN_3423473676", value: "TOKEN" }]
+```
