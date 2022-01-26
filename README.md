@@ -11,6 +11,8 @@
 -redis
 
 
+<span style="color:orange;">Word up</span>
+
 **install**
  
   `npm i @mmdzov/pswd`
@@ -19,7 +21,7 @@
 **Usage**
 
 *Add Token to blacklist*
-```
+```javascript
 const secret_key = "12345"
 const ins = new Pswd(secret_key);
 const client = await connect(); // return redis client
@@ -28,7 +30,7 @@ await ins.jwt.blacklist.config({ redisClient: client }).add("user_token"); // re
 ```
 
 *Get list of blacklist*
-```
+```javascript
 const client = await connect();
 let result = await ins.jwt.blacklist.config({ redisClient: client }).getList(); //return array of object blacklist. like: [{ key: "BLACKLIST_TOKEN_3423473676", value: "TOKEN" }]
 ```
