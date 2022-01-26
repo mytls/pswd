@@ -1,14 +1,15 @@
 {
   "name": "@mmdzov/pswd",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start:transpile": "tsc",
-    "start:watch": "nodemon dist/index.js",
+    "start:transpile": "tsc -w",
+    "start:watch": "nodemon dist/example/app.js",
     "start": "concurrently npm:start:*",
     "test": "mocha -r ts-node/register tests/*.ts tests/**/*.ts",
-    "test:watch": "mocha -r ts-node/register --watch --watch-files tests/*.ts tests/**/*.ts src/**/*.ts src/*.ts"
+    "test:watch": "mocha -r ts-node/register --watch --watch-files tests/*.ts tests/**/*.ts src/**/*.ts src/*.ts",
+    "example": "nodemon dist/example/app.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@types/chai": "^4.3.0",
     "@types/crypto-js": "^4.1.0",
+    "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/mocha": "^9.1.0",
     "@types/nanoid": "^3.0.0",
@@ -35,9 +37,12 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
+    "chai-http": "^4.3.0",
     "crypto-js": "^4.1.1",
+    "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "nanoid": "^3.2.0",
+    "node-mocks-http": "^1.11.0",
     "redis": "^4.0.2"
   }
 }

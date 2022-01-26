@@ -1,9 +1,12 @@
 import { describe, it } from "mocha";
 import Pswd from "../src/pswd";
-import { assert, expect } from "chai";
+import chai, { assert, expect } from "chai";
 import connect from "./../src/config/connect";
+import ChaiHttp from "chai-http";
 
 const secret_key = "12345";
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkhlbGxvIHdvcmxkIiwiaWF0IjoxNjQzMTM0MTE3LCJleHAiOjE2NDM5OTgxMTd9.jKD23wZ96Eg6IezgTB4dcSpVfdmTzwpdAIdGN1sf0YM";
 
 const ins = new Pswd(secret_key);
 describe("encrypt/decrypt AES passwords", () => {
@@ -20,6 +23,7 @@ describe("encrypt/decrypt AES passwords", () => {
   });
 });
 
+chai.use(ChaiHttp);
 describe("manage jwt tokens", () => {
   // it("should to be generate new token", () => {
   //   const result = ins.jwt.gen();
@@ -28,22 +32,20 @@ describe("manage jwt tokens", () => {
 
   it("should add a token to blacklist", async () => {
     const client = await connect();
-    await ins.jwt.blacklist
-      .config({
+    (
+      await ins.jwt.blacklist.config({
         redisClient: client,
       })
-      .add(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkhlbGxvIHdvcmxkIiwiaWF0IjoxNjQzMTM0MTE3LCJleHAiOjE2NDM5OTgxMTd9.jKD23wZ96Eg6IezgTB4dcSpVfdmTzwpdAIdGN1sf0YM"
-      );
-  })
+    ).add(token);
+  });
 
   it("should to be get list of blacklist", async () => {
     const client = await connect();
-    let result = await ins.jwt.blacklist
-      .config({
+    let result = (
+      await ins.jwt.blacklist.config({
         redisClient: client,
       })
-      .getList();
+    ).getList();
 
     try {
       expect(result[0]).to.have.any.keys("key", "value");

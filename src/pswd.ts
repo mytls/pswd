@@ -17,6 +17,10 @@ class Pswd {
     const result = crypto.AES.encrypt(toJSON, this.secret_key).toString();
     return result;
   }
+
+  solver = (handler: (...handlerProps: any) => any) => {
+    return handler as () => {};
+  };
 }
 
 export default Pswd;
