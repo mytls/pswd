@@ -1,6 +1,6 @@
 {
   "name": "@mmdzov/pswd",
-  "version": "1.6.2",
+  "version": "1.6.5",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
