@@ -10,9 +10,6 @@
 
 -redis
 
-
-<span style="color:orange;">Word up</span>
-
 **install**
  
   `npm i @mmdzov/pswd`
