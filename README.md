@@ -8,3 +8,9 @@
 ### requirement for jwt blacklist
 
 -redis
+
+
+**install**
+ 
+  `npm i @mmdzov/pswd`
+  
