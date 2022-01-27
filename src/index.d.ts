@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { RedisClientType, RedisModules, RedisScripts } from "redis";
 
 declare module "express" {
   export interface Response {
@@ -6,45 +7,46 @@ declare module "express" {
   }
 }
 
-type IBlacklistTokenErrors = "BLOCKED_TOKEN";
+export type TTokenErrors = "UNDEFINED_TOKEN";
 
-type IJwtTokenErrors = "JWT_EXPIRED" | "INVALID_SIGNATURE" | "INVALID_TOKEN";
+export type IBlacklistTokenErrors = "BLOCKED_TOKEN" | TTokenErrors;
 
-interface IBlacklistCallbackParams<
+export type IJwtTokenErrors =
+  | TTokenErrorss
+  | "JWT_EXPIRED"
+  | "INVALID_SIGNATURE"
+  | "INVALID_TOKEN";
+
+export interface IBlacklistCallbackParams<
   T extends IBlacklistTokenErrors | IJwtTokenErrors
 > {
   err: { type: T; details?: object; [key: string]: string } | null;
-  req?: Request;
-  res?: Response;
+  req: Request;
+  res: Response;
   data?: any;
 }
 export interface IAuthConfig {
   token_key: string;
 }
 
-export interface IBlacklistAuthCallback<T> {
+export interface IAuthCallback<T> {
   ({ err, req, res, data }: IBlacklistCallbackParams<T>): any;
 }
-export namespace NBlacklist {
-  export type TRedisClientType = RedisClientType<RedisModules, RedisScripts>;
 
+export type TRedisClientType = RedisClientType<RedisModules, RedisScripts>;
+
+export namespace NBlacklist {
   export interface IBlacklistConfigs {
     redisClient: TRedisClientType;
   }
 
-  export type IBlacklistPromiseConfigs = {
+  export type IBlacklistPromiseConfigs<T extends object> = {
     [B in keyof IBlacklistConfigs]: Promise<IBlacklistConfigs[B]>;
+  } & {
+    [A in keyof T]: T[A];
   };
 
   export type TTemp = { key?: string; value?: string }[];
-
-  export {
-    IBlacklistCallbackParams,
-    IBlacklistTokenErrors,
-    IBlacklistAuthCallback,
-  };
 }
 
-export namespace NJwt {
-  export { IBlacklistAuthCallback, IJwtTokenErrors };
-}
+export namespace NJwt {}
