@@ -88,3 +88,34 @@ app.use(checkpoint); //? Token checkpoint to check for blockage
 
 app.use(auth);
 ```
+
+### You can also check the authorization and blacklist together and create a complete and simple checkpoint
+
+```javascript
+
+const connect = () => {
+  const client = createClient();
+  client.on("error", (err) => console.log("Redis Client Error", err));
+  await client.connect();
+  return client;
+}
+
+const client = connect()
+const secret_key = "12345";
+const pswd = new Pswd(secret_key);
+
+const config = {
+  redisClient: client,
+  token_key: "authorization",
+};
+
+const auto = pswd.jwt.auto(({ err, res }) => {
+  if (err?.type) {
+    return res.json({
+      type: err?.type,
+    });
+  }
+}, config);
+
+app.use(auto);
+```
