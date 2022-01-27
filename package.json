@@ -1,6 +1,6 @@
 {
   "name": "@mmdzov/pswd",
-  "version": "1.6.9",
+  "version": "1.6.10",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -20,6 +20,9 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mytls/pswd/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "homepage": "https://github.com/mytls/pswd#readme",
   "devDependencies": {
