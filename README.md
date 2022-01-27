@@ -1,5 +1,7 @@
 # pswd
 
+### Validation, Authentication, Encryption. Simple and powerful
+
 **easy to encrypt/decrypt data with crypto-js**
 
 **manage jsonwebtoken blacklists**
