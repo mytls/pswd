@@ -33,3 +33,56 @@ await ins.jwt.blacklist.config({ redisClient: client }).add("user_token"); // re
 const client = await connect();
 let result = await ins.jwt.blacklist.config({ redisClient: client }).getList(); //return array of object blacklist. like: [{ key: "BLACKLIST_TOKEN_3423473676", value: "TOKEN" }]
 ```
+
+
+### You can make the validation of your jwt tokens much easier, see the example below
+
+```javascript
+const secret_key = "12345";
+
+const pswd = new Pswd(secret_key);
+
+const client = connect(); //? redis client . It does not matter if the result is a promise or not
+
+const configured = pswd.jwt.blacklist.config({
+  redisClient: client,
+});
+
+//* jwt checkpoint
+const checkpoint = configured.auth(
+  (result) => {
+    if (result?.err) {
+      return result.res?.json({
+        ...result.err,
+        message: "This token has already been blocked",
+      }); //? Return a result when the token is blocked
+      //? Prevent next operations
+    }
+    //? NOTE: There is no need to implement the next function because when the validation is confirmed, next runs behind the scenes
+  },
+  {
+    token_key: "authorization", //? token key Header
+  }
+);
+
+//* jwt auth
+const auth = pswd.jwt.auth(
+  (result) => {
+    if (result.err?.type) {
+      return result.res?.json({
+        type: result.err.type,
+      });
+      //? Prevent next operations
+    }
+    console.log(result.data);
+    //? NOTE: There is no need to implement the next function because when the validation is confirmed, next runs behind the scenes
+  },
+  {
+    token_key: "authorization",
+  }
+);
+
+app.use(checkpoint); //? Token checkpoint to check for blockage
+
+app.use(auth);
+```
