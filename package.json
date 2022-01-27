@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/mytls/pswd#readme",
   "publishConfig": {
-    "@mmdzov:registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@types/chai": "^4.3.0",
