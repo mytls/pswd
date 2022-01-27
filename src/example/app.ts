@@ -15,24 +15,43 @@ const configured = pswd.jwt.blacklist.config({
   redisClient: client,
 });
 
-app.use(
-  pswd.solver(
-    configured.auth(
-      (result) => {
-        if (result?.err) {
-          return result.res?.json({
-            ...result.err,
-            message: "This token has already been blocked",
-          }); //? Return a result when the token is blocked
-          //? Prevent next operations
-        }
-      },
-      {
-        token_key: "authorization", //? token key Header
-      }
-    )
-  )
+//* jwt checkpoint
+const checkpoint = configured.auth(
+  (result) => {
+    if (result?.err) {
+      return result.res?.json({
+        ...result.err,
+        message: "This token has already been blocked",
+      }); //? Return a result when the token is blocked
+      //? Prevent next operations
+    }
+    //? NOTE: There is no need to implement the next function because when the validation is confirmed, next runs behind the scenes
+  },
+  {
+    token_key: "authorization", //? token key Header
+  }
 );
+
+//* jwt auth
+const auth = pswd.jwt.auth(
+  (result) => {
+    if (result.err?.type) {
+      return result.res?.json({
+        type: result.err.type,
+      });
+      //? Prevent next operations
+    }
+    console.log(result.data);
+    //? NOTE: There is no need to implement the next function because when the validation is confirmed, next runs behind the scenes
+  },
+  {
+    token_key: "authorization",
+  }
+);
+
+app.use(checkpoint); //? Token checkpoint to check for blockage
+
+app.use(auth);
 
 app.get(
   "/",

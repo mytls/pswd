@@ -4,7 +4,7 @@ import Jwt from "./jwt";
 class Pswd {
   declare jwt: Jwt;
   constructor(private secret_key: string) {
-    this.jwt = new Jwt();
+    this.jwt = new Jwt(secret_key);
   }
 
   dec(pswd: string) {

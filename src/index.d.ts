@@ -6,24 +6,26 @@ declare module "express" {
   }
 }
 
+type IBlacklistTokenErrors = "BLOCKED_TOKEN";
+
+type IJwtTokenErrors = "JWT_EXPIRED" | "INVALID_SIGNATURE" | "INVALID_TOKEN";
+
+interface IBlacklistCallbackParams<
+  T extends IBlacklistTokenErrors | IJwtTokenErrors
+> {
+  err: { type: T; details?: object; [key: string]: string } | null;
+  req?: Request;
+  res?: Response;
+  data?: any;
+}
+export interface IAuthConfig {
+  token_key: string;
+}
+
+export interface IBlacklistAuthCallback<T> {
+  ({ err, req, res, data }: IBlacklistCallbackParams<T>): any;
+}
 export namespace NBlacklist {
-  export interface IBlacklistAuthConfig {
-    token_key: string;
-  }
-
-  type IBlacklistTokenErrors = "BLOCKED_TOKEN";
-
-  interface IBlacklistCallbackParams {
-    err: { type: IBlacklistTokenErrors } | null;
-    req?: Request;
-    res?: Response;
-    data?: any;
-  }
-
-  export interface IBlacklistAuthCallback {
-    ({ err, req, res, data }: IBlacklistCallbackParams): any;
-  }
-
   export type TRedisClientType = RedisClientType<RedisModules, RedisScripts>;
 
   export interface IBlacklistConfigs {
@@ -35,4 +37,14 @@ export namespace NBlacklist {
   };
 
   export type TTemp = { key?: string; value?: string }[];
+
+  export {
+    IBlacklistCallbackParams,
+    IBlacklistTokenErrors,
+    IBlacklistAuthCallback,
+  };
+}
+
+export namespace NJwt {
+  export { IBlacklistAuthCallback, IJwtTokenErrors };
 }

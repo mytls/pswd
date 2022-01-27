@@ -1,11 +1,11 @@
 {
   "name": "@mmdzov/pswd",
-  "version": "1.6.6",
+  "version": "1.6.8",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "start:transpile": "tsc -w",
-    "start:watch": "nodemon dist/example/app.js",
+    "start:watch": "nodemon dist/index.ts",
     "start": "concurrently npm:start:*",
     "test": "mocha -r ts-node/register tests/*.ts tests/**/*.ts",
     "test:watch": "mocha -r ts-node/register --watch --watch-files tests/*.ts tests/**/*.ts src/**/*.ts src/*.ts",
