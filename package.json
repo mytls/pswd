@@ -1,6 +1,6 @@
 {
   "name": "@mmdzov/pswd",
-  "version": "1.6.8",
+  "version": "1.6.9",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -22,9 +22,6 @@
     "url": "https://github.com/mytls/pswd/issues"
   },
   "homepage": "https://github.com/mytls/pswd#readme",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "devDependencies": {
     "@types/chai": "^4.3.0",
     "@types/crypto-js": "^4.1.0",

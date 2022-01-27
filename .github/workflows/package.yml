@@ -1,4 +1,4 @@
-name: @mmdzov/pswd
+name: publish Node.js Package
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
-          scope: '@mmdzov'
+          scope: "@mmdzov"
       - run: npm install
       - run: git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com" && git config --global user.name "$GITHUB_ACTOR"
       - run: npm version --minor
