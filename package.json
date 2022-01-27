@@ -1,6 +1,6 @@
 {
   "name": "@mmdzov/pswd",
-  "version": "1.6.11",
+  "version": "1.6.12",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -21,6 +21,15 @@
   "bugs": {
     "url": "https://github.com/mytls/pswd/issues"
   },
+  "keywords": [
+    "authorization",
+    "authentication",
+    "auth",
+    "jwt",
+    "jwt blacklist",
+    "jsonwebtoken blacklist",
+    "encryption"
+  ],
   "homepage": "https://github.com/mytls/pswd#readme",
   "devDependencies": {
     "@types/chai": "^4.3.0",
