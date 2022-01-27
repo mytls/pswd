@@ -93,8 +93,15 @@ app.use(auth);
 
 ```javascript
 
-const secret_key = "12345";
+const connect = () => {
+  const client = createClient();
+  client.on("error", (err) => console.log("Redis Client Error", err));
+  await client.connect();
+  return client;
+}
 
+const client = connect()
+const secret_key = "12345";
 const pswd = new Pswd(secret_key);
 
 const config = {
