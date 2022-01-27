@@ -24,35 +24,35 @@ describe("encrypt/decrypt AES passwords", () => {
 });
 
 describe("manage jwt tokens", () => {
-  // it("should to be generate new token", () => {
-  //   const result = jsonwebtoken.sign({ say: "Hello world" }, secret_key, {
-  //     expiresIn: "1m",
-  //   });
-  //   console.log(result);
-  // });
+  it("should to be generate new token", () => {
+    const result = jsonwebtoken.sign({ say: "Hello world" }, secret_key, {
+      expiresIn: "1m",
+    });
+    console.log(result);
+  });
 
-  // it("should add a token to blacklist", async () => {
-  //   const client = await connect();
-  //   (
-  //     await ins.jwt.blacklist.config({
-  //       redisClient: client,
-  //     })
-  //   ).add(token);
-  // });
+  it("should add a token to blacklist", async () => {
+    const client = await connect();
+    (
+      await ins.jwt.blacklist.config({
+        redisClient: client,
+      })
+    ).add(token);
+  });
 
-  // it("should to be get list of blacklist", async () => {
-  //   const client = await connect();
-  //   let result = await (
-  //     await ins.jwt.blacklist.config({
-  //       redisClient: client,
-  //     })
-  //   ).getList();
+  it("should to be get list of blacklist", async () => {
+    const client = await connect();
+    let result = await (
+      await ins.jwt.blacklist.config({
+        redisClient: client,
+      })
+    ).getList();
 
-  //   try {
-  //     const example = result[0];
-  //     expect(example).to.have.any.keys("key", "value");
-  //   } catch (e) {
-  //     throw new Error("may be list has empty or key/value not exists");
-  //   }
-  // });
+    try {
+      const example = result[0];
+      expect(example).to.have.any.keys("key", "value");
+    } catch (e) {
+      throw new Error("may be list has empty or key/value not exists");
+    }
+  });
 });
